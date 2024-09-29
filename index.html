@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="/serviceScript.js"></script>
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <div>
+                <h1>QuestionGenie</h1>
+                <form action="javascript:search()">
+                    <input
+                        type="text"
+                        id="user-search"
+                        name="user-search"
+                        placeholder="Enter Query..."
+                    />
+                    <input type="submit" value="Submit" />
+                </form>
+                <p id="ai-status"></p>
+                <div id="ai-response">
+                    <h3>Explanation</h3>
+                    <p id="explanation"></p>
+                    <h3>Example Problem</h3>
+                    <div id="exampleProblem">
+                        <p id="exampleQuestion"></p>
+                        <p id="exampleChoiceA"></p>
+                        <p id="exampleChoiceB"></p>
+                        <p id="exampleChoiceC"></p>
+                        <p id="exampleChoiceD"></p>
+                        <p id="exampleAnswer"></p>
+                    </div>
+                    <h3>Example Explanation</h3>
+                    <p id="exampleExplanation"></p>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+    </body>
+</html>
