@@ -38,23 +38,29 @@ let radioB;
 let radioC;
 let radioD; //four fake answers
 let correctID;
+let context = null;
 
 //I'm lazy this is my easy method to print stuff
-function print(content, id){
-  let a = document.getElementById(id)
+function print(content, id) {
+  let a = document.getElementById(id);
   a.innerHTML = content.toString().replace(/\n/g, "<br />"); // HACK: replace newlines with HTML line breaks;
-  a.style.display = 'inline';
+  a.style.display = "inline";
 }
 
 async function search() {
-  userRequest = document.getElementById("user-search").value; //get userRequest from the search bar
-  print("Generating response, please wait...", "ai-status");
-  await api();
+  userRequest = document.getElementById("input").value; //get userRequest from the search bar
+  document.getElementById("result").style.display = "none"; //hide while generating
+  print("Generating response, please wait...", "aiStatus");
+  try {
+    context = await api(userRequest, null);
+  } catch (e) {
+    print("Error generating response, please try again.", "aiStatus");
+    console.error(e);
+  }
   publish();
-  print("", "ai-status");
 }
 
-async function ollamaRequest(prompt, previousContext = null) {
+async function ollamaRequest(prompt, setContext = null) {
   const GENERATE_URL = `${OLLAMA_HOST}/api/generate`;
   return fetch(GENERATE_URL, {
     method: "POST",
@@ -64,7 +70,7 @@ async function ollamaRequest(prompt, previousContext = null) {
       format: "json",
       stream: false, // TODO: make this true
       system: OLLAMA_SYSTEM_PROMPT,
-      context: previousContext,
+      context: setContext,
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -86,8 +92,8 @@ async function ollamaRequest(prompt, previousContext = null) {
 }
 
 //takes userRequest and transforms it into explanation, exampleProblem, and practiceProblem
-async function api() {
-  var data = await ollamaRequest(userRequest);
+async function api(prompt, previousContext = null) {
+  var data = await ollamaRequest(prompt, previousContext);
   console.log(data);
   var response = data.response;
   var responseJSON;
@@ -99,11 +105,28 @@ async function api() {
   }
 
   // TODO: maybe call elsewhere?
-  validateExplanation(responseJSON);
-  explanation = responseJSON.explanation;
-  exampleProblem = responseJSON.exampleProblem;
-  exampleExplanation = responseJSON.exampleExplanation;
-  
+  if (previousContext == null) {
+    if (!validateExplanation(responseJSON)) {
+      console.error(
+        "AI did not provide a valid explanation response:",
+        responseJSON,
+      );
+      return;
+    }
+    explanation = responseJSON.explanation;
+    exampleProblem = responseJSON.exampleProblem;
+    exampleExplanation = responseJSON.exampleExplanation;
+  } else {
+    if (!validateProblem(responseJSON)) {
+      console.error(
+        "AI did not provide a valid problem response:",
+        responseJSON,
+      );
+      return;
+    }
+    practiceProblem = responseJSON;
+  }
+
   //getProblem();
   //publish();
 
@@ -115,13 +138,14 @@ function validateExplanation(explanationJSON) {
   try {
     if (
       typeof explanationJSON.explanation != "string" ||
-      validateProblem(explanationJSON.exampleProblem) ||
+      !validateProblem(explanationJSON.exampleProblem) ||
       typeof explanationJSON.exampleExplanation != "string"
     ) {
       return false;
     }
     return true;
   } catch (e) {
+    console.error("error attempting to validate explanation JSON");
     return false;
   }
 }
@@ -147,22 +171,21 @@ function validateProblem(problemJSON) {
 //transforms the text from practiceProblem into the question question and false answers radioA/B/C/D and correct answer answer
 function getProblem() {
   //depends on how the API works
-  practiceProblem = "QuestionANDRealAnswerANDFakeANDFakeANDFakeANDFake"//FIXME
-  
-  practiceProblem = practiceProblem.split("AND")//FIXME
-  question = practiceProblem[0]//FIXME
-  answer = practiceProblem[1]//FIXME
-  radioA = practiceProblem[2]//FIXME
-  radioB = practiceProblem[3]//FIXME
-  radioC = practiceProblem[4]//FIXME
-  radioD = practiceProblem[5]//FIXME
+  context = api("Please generate a practice problem for me.", context);
+
+  question = practiceProblem.question;
+  correctID = practiceProblem.answer;
+
+  radioA = practiceProblem.choices[0];
+  radioB = practiceProblem.choices[1];
+  radioC = practiceProblem.choices[2];
+  radioD = practiceProblem.choices[3];
 }
 
 //function that throws the data into HTML
 function publish() {
-  print(explanation, "explanation");
+  print(explanation, "explain");
   //print(exampleProblem, "exampleProblem");
-  print(exampleExplanation, "exampleExplanation");
 
   print(exampleProblem.question, "exampleQuestion");
   exampleProblem.choices.forEach((choice, i) => {
@@ -172,38 +195,22 @@ function publish() {
       print(`Answer: ${letter}`, "exampleAnswer");
     }
   });
+  print(exampleExplanation, "exampleExplanation");
 
-  //print(practiceProblem, "practice");
-  //nextProblem();
-  //document.getElementById("result").style.display = ""
+  nextProblem();
+  document.getElementById("result").style.display = "";
+  print("", "aiStatus");
 }
 
 //next onclick function
-function nextProblem(){
-	//reset checks
+function nextProblem() {
+  //reset checks
   var radio = document.getElementsByName("ans");
-  for(var i=0;i<radio.length;i++)
-    radio[i].checked = false;
+  for (var i = 0; i < radio.length; i++) radio[i].checked = false;
   document.getElementById("next").style.display = "none";
-	
+
   //get questions
   getProblem();
-
-  //shuffle where correct answer is
-  x = Math.floor(4 * Math.random());
-  if (x == 0) {
-    radioA = answer;
-    correctID = "A";
-  } else if (x == 1) {
-    radioB = answer;
-    correctID = "B";
-  } else if (x == 2) {
-    radioC = answer;
-    correctID = "C";
-  } else {
-    radioD = answer;
-    correctID = "D";
-  } //shuffle where correct answer is //MAKE SURE LINES UP WITH HTML
 
   //post all of the words onto the HTML
   print(question, "question");
