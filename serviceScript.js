@@ -190,7 +190,7 @@ function validateProblem(problemJSON) {
 //transforms the text from practiceProblem into the question question and false answers radioA/B/C/D and correct answer answer
 async function getProblem() {
   //depends on how the API works
-  context = await api("Please generate a practice problem for me.", context);
+  context = await api("Please generate a different practice problem on the current topic.", context);
 
   question = practiceProblem.question;
   answer = practiceProblem.answer;
