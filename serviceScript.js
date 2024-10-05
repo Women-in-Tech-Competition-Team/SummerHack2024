@@ -20,8 +20,8 @@ const OLLAMA_SYSTEM_PROMPT = `
   - exampleProblem: a JSON object representing an example problem, with the same fields as a "problem"
   - exampleExplanation: a string representing the explanation to solving the example problem
 
-  When given a prompt and/or topic, you must generate ONLY an explanation using the format for an "explanation".
-  However, if previous context is provided or you are specifically asked to generate a problem, you MUST use it to generate ONLY a problem with the format for a "problem".
+  When given a prompt, you must initially only generate an explanation using the format for an "explanation".
+  However, if previous context is provided, you must use it to generate a problem with the format for a "problem".
 `;
 
 let userRequest; //from search bar
@@ -190,7 +190,7 @@ function validateProblem(problemJSON) {
 //transforms the text from practiceProblem into the question question and false answers radioA/B/C/D and correct answer answer
 async function getProblem() {
   //depends on how the API works
-  context = await api("Please generate a different practice problem on the current topic.", context);
+  context = await api("Please generate a practice problem for me.", context);
 
   question = practiceProblem.question;
   answer = practiceProblem.answer;
