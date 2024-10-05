@@ -69,7 +69,6 @@ body {
 
 .home .content span{
     font-size: 3rem;
-    border: 10%;
     color: #333;
     padding: .5rem 0;
     line-height: 1;
@@ -87,7 +86,6 @@ body {
     color: var(--dark) ;
     padding: .5rem 0;
     line-height: 1;
-    display: flex center;
 }
 .button {
     font: bold 11px Arial;
