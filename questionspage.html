@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions Page</title>
     <link rel="stylesheet" href="styles.css">
+    <script source="serviceScript.js"></script>
 </head>
 <body>
     <div class="header">
@@ -18,22 +19,34 @@
                 <a href="questionspage.html"><img src="questiongenielogo (1).jpg" alt="Questions"></a></div>
             </div>
     </div> 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            search();
+        })
+    </script>
     <div class="container">
         <div class="search-bar">
             <input type="text" placeholder="Subject">
         </div>
-        <div class="explanation">
-            Sure here’s an explanation:<br><br>
-            1. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe<br><br>
-            2. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe<br><br>
-            3. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe<br><br>
-            4. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe<br><br>
-            5. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe<br><br>
-            6. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe<br><br>
-            7. AI-Generated Explanation aywywu whwywu wywuhwywu uwuwuuw uwhwgehbs hbsbshbsbsb sggsgshsbsb gsbsgehsbsg shsbhenshe
+        <h2>Explanation</h2>
+        <p id="explain"></p>
+        <h2>Example Problem</h2>
+        <div id="example">
+            <p id="exampleQuestion"></p>
+            <br />
+            <p id="exampleChoiceA"></p>
+            <br />
+            <p id="exampleChoiceB"></p>
+            <br />
+            <p id="exampleChoiceC"></p>
+            <br />
+            <p id="exampleChoiceD"></p>
+            <br />
+            <p id="exampleAnswer"></p>
+            <h3>Explanation</h3>
+            <p id="exampleExplanation"></p>
         </div>
-    <button class="practice-btn"
-    onclick="location.href='practicequestions.html'">Practice Questions</button>
-</div>
+        <button class="practice-btn" onclick="location.href='practicequestions.html'">Practice Questions</button>
+    </div>
 </body>
 </html>   
