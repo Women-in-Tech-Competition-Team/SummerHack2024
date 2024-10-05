@@ -47,8 +47,23 @@ function print(content, id) {
   a.style.display = "inline";
 }
 
+function getRequest() { //general function that grabs cookie from server
+    let name = "question=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
 async function search() {
-  userRequest = document.getElementById("input").value; //get userRequest from the search bar
+  userRequest = getRequest(); //get userRequest from the search bar
   document.getElementById("result").style.display = "none"; //hide while generating
   print("Generating response, please wait...", "aiStatus");
   try {
