@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 0 auto;
     font-family: 'Arial', sans-serif;
 }
 :root{
@@ -180,7 +180,7 @@ height: auto;
     right: 20px;
 }
 .question {
-    text-align: left;
+    margin:0 auto;
 }
 .pageheader {
     padding: 20px;
