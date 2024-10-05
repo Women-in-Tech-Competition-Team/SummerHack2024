@@ -13,7 +13,7 @@ QuestionGenie is a website that uses advanced AI algorithms to generate personal
 At QuestionGenie, our mission is to revolutionize the way people learn by providing innovative, AI-driven tools that empower individuals to achieve their academic goals. We believe in making education accessible, personalized, and effective for everyone.
 
 # Services
-- Our service utilizes Ollama as our AI of choice, allowing the use of {ai models compatible for ollama}
+- Our service utilizes Ollama as our AI of choice, allowing the use of the many models built for Ollama.
 - As we rely on our own services for our AI, your data is kept private by design.
 - Our AI is custom-tailored to respond to queries  with simple explanations and helpful problems
 
