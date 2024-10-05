@@ -1,0 +1,196 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-elements {
+    display: flex;
+    align-items: center;
+}
+.left-elements a {
+    margin-right: 20px; /* Adjust the spacing between links if needed */
+    text-decoration: none; /* Optional: Remove underline from links */
+}
+.top-right-buttons {
+    display: flex;
+    align-items: center;
+}
+.top-right-buttons img {
+    margin-left: 10px; /* Adjust the spacing between images if needed */
+}
+.nav-links {
+    display: flex;
+}
+.nav-links a {
+    color: #000;
+    margin-right: 1em;
+    text-decoration: none;
+}
+.top-right-buttons {
+    display: flex;
+    align-items: center;
+}
+.top-right-buttons img {
+    width: 35px;
+    height: auto;
+}
+.container {
+    margin-top: 60px; /* Adjust based on header height */
+    text-align: center;
+}
+.centered-heading {
+    margin-bottom: 20px;
+}
+.search-form input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.search-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4285F4;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+main {
+    padding: 2em;
+}
+footer {
+    background-color: #ffffff;
+    color: #d37777;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+.pricing-container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+.pricing-box {
+    flex: 1;
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+.folder-icon {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+}
+.image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px; /* Adjust the spacing between rows as needed */
+}
+.image-container {
+    text-align: center;
+}
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+.subject-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+.explanation {
+    text-align: left;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+}
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.folder-icon {
+width: 65%;
+height: auto;
+}
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+}
+.search-bar button {
+    padding: 12px 20px;
+    font-size: 16px;
+}
+.explanation {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.practice-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.next-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.report-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.question {
+    text-align: left;
+}
+.pageheader {
+    padding: 20px;
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+td:nth-child(4) {
+    color: green; /* Correct answers */
+}
+td:nth-child(4):not(:contains('Correct')) {
+    color: red; /* Wrong answers */
+}
+.team {
+    display: flex;
+    justify-content: space-between;
+}
+.team-member {
+    margin: 0 10px;
+}
+.team-member img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
