@@ -64,7 +64,7 @@ function getRequest() { //general function that grabs cookie from server
 
 async function search() {
   userRequest = getRequest(); //get userRequest from the search bar
-  document.getElementById("input").value = userRequest;
+  document.getElementById("input").placeholder = userRequest;
   document.getElementById("result").style.display = "none"; //hide while generating
   print("Generating response, please wait...", "aiStatus");
   try {
