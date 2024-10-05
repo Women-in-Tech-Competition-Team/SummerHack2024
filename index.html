@@ -18,12 +18,20 @@
                 <a href="questionspage.html"><img src="questiongenielogo (1).jpg" alt="Questions"></a></div>
             </div>
     </div>    
+    <script>
+        search(){
+            let a = document.getElementById("input").value 
+            const d = new Date();
+            d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+            let expires = "expires="+d.toUTCString();
+            document.cookie = "question" + "=" + a + ";" + expires + ";path=/";
+            window.location.replace("questionspage.html");
+          }
+    </script>
     <div class="container">
         <h1 class="centered-heading">QuestionGenie</h1>
-        <form action="https://www.google.com/search" method="get" class="search-form">
-            <input type="text" name="q" placeholder="Search your question...">
-            <button type="submit">Search</button>
-        </form>
+        <input type="text" id="input" placeholder="Search your question..." />
+        <button id="submitButton" onclick="search()">Learn</button>
     </div>
 </body>
 </html>
