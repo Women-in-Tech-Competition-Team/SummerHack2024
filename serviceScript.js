@@ -81,7 +81,8 @@ async function search() {
   }
   document.getElementById("input").value = userRequest;
   setRequest(userRequest);
-  
+
+  document.getElementById("result").style.display = "none";
   print("Generating response, please wait...", "aiStatus");
   try {
     context = await api(userRequest, null);
@@ -238,6 +239,7 @@ async function nextProblem() {
   var radio = document.getElementsByName("ans");
   for (var i = 0; i < radio.length; i++) radio[i].checked = false;
   document.getElementById("next").style.display = "none";
+  document.getElementById("practice").style.display = "none";
 
   print("Generating practice problem, please wait...", "aiStatus");
   //get questions
@@ -258,6 +260,7 @@ async function nextProblem() {
   print(radioC, "radioC");
   print(radioD, "radioD");
 
+  document.getElementById("practice").style.display = "";
   print("", "aiStatus");
 }
 
