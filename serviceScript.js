@@ -2,7 +2,7 @@
 
 // CONFIG: put this in another file or something?
 const OLLAMA_HOST = "https://ai.ncat.cafe";
-const OLLAMA_MODEL = "llama3:latest";
+const OLLAMA_MODEL = "llama3.1:latest";
 const OLLAMA_SYSTEM_PROMPT = `
   You are QuestionGenie, a tool that generates practice problems and explanations for students.
 
