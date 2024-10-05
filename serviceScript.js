@@ -66,6 +66,13 @@ function getRequest() { //general function that grabs cookie from server
     return "";
   }
 
+function setRequest(a) {
+	const d = new Date();
+	d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+	let expires = "expires="+d.toUTCString();
+	document.cookie = "question" + "=" + a + ";" + expires + ";path=/";
+}
+
 async function search() {
   if (document.getElementById("input").value == "") {
     userRequest = getRequest(); //get userRequest from the server
@@ -73,7 +80,8 @@ async function search() {
     userRequest = document.getElementById("input").value; //get userRequest from the search bar
   }
   document.getElementById("input").value = userRequest;
-  //document.getElementById("result").style.display = "none"; //hide while generating
+  setRequest(userRequest);
+  
   print("Generating response, please wait...", "aiStatus");
   try {
     context = await api(userRequest, null);
