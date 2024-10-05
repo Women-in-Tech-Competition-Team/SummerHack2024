@@ -48,6 +48,7 @@ body {
     height: auto;
 }
 .container {
+    text-align: center;
     display: flex;
     align-items: center;
     min-height: 100vh;
