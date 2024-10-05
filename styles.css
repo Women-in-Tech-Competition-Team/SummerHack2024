@@ -69,14 +69,14 @@ body {
 
 .home .content span{
     font-size: 3rem;
-    color: #333;
+    color:var(--dark);
     padding: .5rem 0;
     line-height: 1;
 }
 
 .home .content p{
     font-size: 1.5rem;
-    color: #999 ;
+    color:var(--dark);
     padding: .5rem 0;
     line-height: 1;
 }
