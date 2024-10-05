@@ -42,9 +42,13 @@ let context = null;
 
 //I'm lazy this is my easy method to print stuff
 function print(content, id) {
-  let a = document.getElementById(id);
-  a.innerHTML = content.toString().replace(/\n/g, "<br />"); // HACK: replace newlines with HTML line breaks;
-  a.style.display = "inline";
+  try {
+    let a = document.getElementById(id);
+    a.innerHTML = content.toString().replace(/\n/g, "<br />"); // HACK: replace newlines with HTML line breaks;
+    a.style.display = "inline";
+  } catch(e) {
+    console.error("Could not print '" + content + "' to '" + id + "'");
+  }
 }
 
 function getRequest() { //general function that grabs cookie from server
