@@ -20,8 +20,8 @@ const OLLAMA_SYSTEM_PROMPT = `
   - exampleProblem: a JSON object representing an example problem, with the same fields as a "problem"
   - exampleExplanation: a string representing the explanation to solving the example problem
 
-  When given a prompt, you must generate an explanation using the format for an "explanation" IF no context is provided.
-  However, if previous context is provided, you MUST use it to generate a problem with the format for a "problem".
+  When given a prompt and/or topic, you must generate ONLY an explanation using the format for an "explanation".
+  However, if previous context is provided or you are specifically asked to generate a problem, you MUST use it to generate ONLY a problem with the format for a "problem".
 `;
 
 let userRequest; //from search bar
