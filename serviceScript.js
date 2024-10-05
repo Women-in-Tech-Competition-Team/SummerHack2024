@@ -55,9 +55,9 @@ async function search() {
     context = await api(userRequest, null);
   } catch (e) {
     print("Error generating response, please try again.", "aiStatus");
-    console.error(e);
+    throw e;
   }
-  publish();
+  await publish();
 }
 
 async function ollamaRequest(prompt, setContext = null) {
@@ -107,6 +107,7 @@ async function api(prompt, previousContext = null) {
   // TODO: maybe call elsewhere?
   if (previousContext == null) {
     if (!validateExplanation(responseJSON)) {
+      console.log("explanation detected");
       console.error(
         "AI did not provide a valid explanation response:",
         responseJSON,
@@ -118,6 +119,7 @@ async function api(prompt, previousContext = null) {
     exampleExplanation = responseJSON.exampleExplanation;
   } else {
     if (!validateProblem(responseJSON)) {
+      console.log("problem detected");
       console.error(
         "AI did not provide a valid problem response:",
         responseJSON,
@@ -126,9 +128,6 @@ async function api(prompt, previousContext = null) {
     }
     practiceProblem = responseJSON;
   }
-
-  //getProblem();
-  //publish();
 
   return data.context;
 }
@@ -169,12 +168,12 @@ function validateProblem(problemJSON) {
 }
 
 //transforms the text from practiceProblem into the question question and false answers radioA/B/C/D and correct answer answer
-function getProblem() {
+async function getProblem() {
   //depends on how the API works
-  context = api("Please generate a practice problem for me.", context);
+  context = await api("Please generate a practice problem for me.", context);
 
   question = practiceProblem.question;
-  correctID = practiceProblem.answer;
+  answer = practiceProblem.answer;
 
   radioA = practiceProblem.choices[0];
   radioB = practiceProblem.choices[1];
@@ -183,7 +182,7 @@ function getProblem() {
 }
 
 //function that throws the data into HTML
-function publish() {
+async function publish() {
   print(explanation, "explain");
   //print(exampleProblem, "exampleProblem");
 
@@ -197,33 +196,43 @@ function publish() {
   });
   print(exampleExplanation, "exampleExplanation");
 
-  nextProblem();
+  await nextProblem();
   document.getElementById("result").style.display = "";
   print("", "aiStatus");
 }
 
 //next onclick function
-function nextProblem() {
+async function nextProblem() {
   //reset checks
   var radio = document.getElementsByName("ans");
   for (var i = 0; i < radio.length; i++) radio[i].checked = false;
   document.getElementById("next").style.display = "none";
 
+  print("Generating practice problem, please wait...", "aiStatus");
   //get questions
-  getProblem();
+  try {
+    await getProblem();
+  } catch (e) {
+    print("Error generating practice problem, please try again.", "aiStatus");
+    throw e;
+  }
 
   //post all of the words onto the HTML
   print(question, "question");
 
+  correctID = String.fromCharCode(65 + answer);
+  console.log(correctID);
   print(radioA, "radioA");
   print(radioB, "radioB");
   print(radioC, "radioC");
   print(radioD, "radioD");
+
+  print("", "aiStatus");
 }
 
 //practiceSubmit submit function
 function checkAnswer() {
-  if (document.getElementByID(correctID).checked == true) {
+  if (document.getElementById(correctID).checked == true) {
     window.alert("Correct! :D");
   } else {
     window.alert("Try again...");
