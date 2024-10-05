@@ -111,7 +111,7 @@ async function ollamaRequest(prompt, setContext = null) {
     })
     .catch((error) => {
       console.error("Unable to fetch data:", error);
-      return null;
+      throw error;
     });
 }
 
@@ -125,7 +125,7 @@ async function api(prompt, previousContext = null) {
     responseJSON = JSON.parse(response);
   } catch (e) {
     console.error("AI did not provide a valid JSON response:", response);
-    return;
+    throw e;
   }
 
   // TODO: maybe call elsewhere?
@@ -136,7 +136,7 @@ async function api(prompt, previousContext = null) {
         "AI did not provide a valid explanation response:",
         responseJSON,
       );
-      return;
+      throw new Error("AI did not provide a valid explanation response");
     }
     explanation = responseJSON.explanation;
     exampleProblem = responseJSON.exampleProblem;
@@ -148,7 +148,7 @@ async function api(prompt, previousContext = null) {
         "AI did not provide a valid problem response:",
         responseJSON,
       );
-      return;
+      throw new Error("AI did not provide a valid explanation response");
     }
     practiceProblem = responseJSON;
   }
@@ -168,7 +168,6 @@ function validateExplanation(explanationJSON) {
     }
     return true;
   } catch (e) {
-    console.error("error attempting to validate explanation JSON");
     return false;
   }
 }
